@@ -1,7 +1,7 @@
 {
   "name": "Discord Embeds",
   "version": "1.0",
-  "description": "Preview sites' Discord embeds for debugging purposes.",
+  "description": "Preview sites' Discord embeds for debugging purposes. Not affiliated in any way with Discord.",
   "permissions": ["activeTab"],
   "action": {
     "default_popup": "popup.html"
