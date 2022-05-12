@@ -33,7 +33,7 @@
 
   let imageUrl = findAndExtract("og:image", "content");
 
-  if (!imageUrl.startsWith("http") && !imageUrl.startsWith("file")) {
+  if (imageUrl && !imageUrl.startsWith("http") && !imageUrl.startsWith("file")) {
     imageUrl = new URL(imageUrl, url).href;
   }
   let imageWidthProperty = findAndExtract("og:image:width", "content") ?? 80;
