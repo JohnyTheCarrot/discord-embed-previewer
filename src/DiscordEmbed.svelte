@@ -6,6 +6,11 @@
   export let metaData;
   export let titleTagContent = undefined;
 
+  let noEmbedPossible;
+
+  const maxTitleLength = 70;
+  const ellipsis = "...";
+
   function findAndExtract(value, keyToExtract) {
     const extractedValue = (metaData.find(
       (data) => (data["property"] ?? data["name"] ?? "").toLowerCase() === value
@@ -16,82 +21,94 @@
     return undefined;
   }
 
-  let borderColor = findAndExtract("theme-color", "content");
-  let siteName = findAndExtract("og:site_name", "content");
-  let title =
-    findAndExtract("og:title", "content") ??
-    findAndExtract("twitter:title", "content");
-  let description =
-    findAndExtract("description", "content") ??
-    findAndExtract("og:description", "content") ??
-    findAndExtract("twitter:description", "content");
+  let embedData = {
+    borderColor: findAndExtract("theme-color", "content"),
+    siteName: findAndExtract("og:site_name", "content"),
+    title:
+      findAndExtract("og:title", "content") ??
+      findAndExtract("twitter:title", "content"),
+    description:
+      findAndExtract("description", "content") ??
+      findAndExtract("og:description", "content") ??
+      findAndExtract("twitter:description", "content"),
+    imageUrl: findAndExtract("og:image", "content"),
+    imageWidthProperty: findAndExtract("og:image:width", "content"),
+    imageHeightProperty: findAndExtract("og:image:height", "content"),
+    twitterCard: findAndExtract("twitter:card", "content"),
+  };
 
-  if (description) {
-    console.log(titleTagContent);
-    title = titleTagContent;
+  let {
+    borderColor,
+    siteName,
+    title,
+    description,
+    imageUrl,
+    imageWidthProperty,
+    imageHeightProperty,
+    twitterCard,
+  } = embedData;
+
+  let imageHeight;
+  let imageIsLarge;
+
+  noEmbedPossible = Object.values(embedData).every((v) => v === undefined);
+  if (!noEmbedPossible) {
+    if (description) title = titleTagContent;
+
+    if (title.length > maxTitleLength)
+      title = title.substring(0, maxTitleLength - ellipsis.length) + ellipsis;
+
+    if (
+      imageUrl &&
+      !imageUrl.startsWith("http") &&
+      !imageUrl.startsWith("file")
+    ) {
+      imageUrl = new URL(imageUrl, url).href;
+    }
+    let aspectRatio = imageWidthProperty / imageHeightProperty;
+    imageHeight = 80 / aspectRatio;
+    imageIsLarge = twitterCard === "summary_large_image";
   }
-
-  let imageUrl = findAndExtract("og:image", "content");
-
-  if (imageUrl && !imageUrl.startsWith("http") && !imageUrl.startsWith("file")) {
-    imageUrl = new URL(imageUrl, url).href;
-  }
-  let imageWidthProperty = findAndExtract("og:image:width", "content") ?? 80;
-  let imageHeightProperty = findAndExtract("og:image:height", "content");
-  let aspectRatio = imageWidthProperty / imageHeightProperty;
-  let imageHeight = 80 / aspectRatio;
-  let imageIsLarge =
-    findAndExtract("twitter:card", "content") === "summary_large_image";
 </script>
 
-<div
-  class="embed"
-  style="border-left-color: {borderColor ?? '#202225'}"
-  class:embed-image-large={imageIsLarge}
->
-  <div class="content">
-    {#if siteName}
-      <span class="site-name">{siteName}</span>
-    {/if}
-    {#if title}
-      <span class="title">{title}</span>
-    {/if}
-    {#if description}
-      <span class="description">{description}</span>
-    {/if}
-    {#if imageUrl && imageIsLarge}
-      <img class="image--large" alt="" src={imageUrl} />
+{#if !noEmbedPossible}
+  <div
+    class="embed"
+    style="border-left-color: {borderColor ?? '#202225'}"
+    class:embed-image-large={imageIsLarge}
+  >
+    <div class="content">
+      {#if siteName}
+        <span class="site-name">{siteName}</span>
+      {/if}
+      {#if title}
+        <span class="title">{title}</span>
+      {/if}
+      {#if description}
+        <span class="description">{description}</span>
+      {/if}
+      {#if imageUrl && imageIsLarge}
+        <img class="image--large" alt="" src={imageUrl} />
+      {/if}
+    </div>
+    {#if imageUrl && !imageIsLarge}
+      <img
+        src={imageUrl}
+        class="image"
+        alt=""
+        style="height: {imageHeight}px;"
+      />
     {/if}
   </div>
-  {#if imageUrl && !imageIsLarge}
-    <img src={imageUrl} class="image" alt="" style="height: {imageHeight}px;" />
-  {/if}
-</div>
 
-<Tooltip>
-  <p class="disclaimer-tooltip-trigger">Disclaimer</p>
-  <span slot="tooltip-content">
-    Custom embeds like<br /> YouTube's & Twitter's<br /> are not supported.
-  </span>
-</Tooltip>
+  <Tooltip>
+    <p class="disclaimer-tooltip-trigger">Disclaimer</p>
+    <span slot="tooltip-content">
+      Custom embeds like<br /> YouTube's & Twitter's<br /> are not supported.
+    </span>
+  </Tooltip>
+{/if}
 
-<!--<details>-->
-<!--  Discord has embeds for certain sites that are handled differently than most-->
-<!--  sites. Examples include Twitter & YouTube. I do not currently support these-->
-<!--  type of embeds. The purpose of this extension is not 1:1 accuracy in all-->
-<!--  cases. The purpose is allowing web devs to see what their own site looks like-->
-<!--  in Discord. I thought it was safe to assume your site is not listed among-->
-<!--  these exceptions, so it is significantly easier not to handle them.-->
-<!--  <summary>Disclaimer</summary>-->
-<!--</details>-->
-
-<!--<details>-->
-<!--  <summary>decoded meta</summary>-->
-<!--  <pre>-->
-<!--    {JSON.stringify(metaData, null, 2)}-->
-<!--  </pre>-->
-
-<!--</details>-->
 <style>
   .embed {
     border-left-width: 4px;
