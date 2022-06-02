@@ -55,7 +55,7 @@
         <span slot="tooltip-content">{currentTimeTooltip}</span>
       </Tooltip>
     </div>
-    <a class="url" href={"#"}>{url}</a>
+    <a class="url" href={url} onclick="return false;">{url}</a>
     <DiscordEmbed {metaData} {titleTagContent} {url} />
   </div>
 

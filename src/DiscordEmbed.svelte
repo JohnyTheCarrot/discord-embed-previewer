@@ -69,12 +69,25 @@
     imageHeight = 80 / aspectRatio;
     imageIsLarge = twitterCard === "summary_large_image";
   }
+
+  let image;
+  let maxWidth;
+
+  function onImageLoad() {
+    if (image.naturalWidth <= image.naturalHeight) {
+      maxWidth = 300;
+    } else {
+      maxWidth = 400;
+    }
+  }
 </script>
 
 {#if !noEmbedPossible}
   <div
     class="embed"
-    style="border-left-color: {borderColor ?? '#202225'}"
+    style="border-left-color: {borderColor ?? '#202225'}; {maxWidth
+      ? `max-width: ${maxWidth + 32}px`
+      : ''}"
     class:embed-image-large={imageIsLarge}
   >
     <div class="content">
@@ -88,7 +101,13 @@
         <span class="description">{description}</span>
       {/if}
       {#if imageUrl && imageIsLarge}
-        <img class="image--large" alt="" src={imageUrl} />
+        <img
+          bind:this={image}
+          on:load={onImageLoad}
+          class="image--large"
+          alt=""
+          src={imageUrl}
+        />
       {/if}
     </div>
     {#if imageUrl && !imageIsLarge}
@@ -124,10 +143,6 @@
     box-sizing: border-box;
   }
 
-  .embed-image-large {
-    max-width: 432px;
-  }
-
   .image {
     width: 80px;
     height: fit-content;
@@ -136,7 +151,9 @@
   }
 
   .image--large {
-    width: 400px;
+    /*width: 100%;*/
+    max-width: 400px;
+    max-height: 300px;
     margin-top: 16px;
     border-radius: 4px;
   }

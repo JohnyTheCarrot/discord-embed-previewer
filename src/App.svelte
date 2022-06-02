@@ -69,7 +69,7 @@
     background-color: #36393f;
     color: white;
     padding: 56px 0;
-    min-width: 650px;
+    min-width: 750px;
   }
 
   .error {
