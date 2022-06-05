@@ -1,5 +1,7 @@
 # Discord Embed Previewer
 
+[Install on Chrome Web Store](https://chrome.google.com/webstore/detail/discord-embeds/faeojpkidgnhcochgodeklokfimbencc)
+
 ## The problem
 
 When I was working on the Rythm website I came across the problem that I
