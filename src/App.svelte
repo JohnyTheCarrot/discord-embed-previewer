@@ -21,22 +21,6 @@
   });
 
   function attemptHeadRetrieval() {
-    // browser.tabs.query({ active: true, currentWindow: true }, ([tab]) => {
-    //   url = tab.url;
-    //
-    //   browser.tabs.sendMessage(tab.id, { op: "GIMME_HEAD" }, (res) => {
-    //     if (browser.runtime.lastError) {
-    //       error = true;
-    //       return;
-    //     }
-    //
-    //     error = false;
-    //
-    //     const dom = new DOMParser().parseFromString(res, "text/html");
-    //     meta = Array.from(dom.querySelectorAll("meta")).map(parseMetaTag);
-    //     titleTagContent = dom.querySelector("title").innerText;
-    //   });
-    // });
     browser.tabs
       .query({ active: true, currentWindow: true })
       .then(([tab]) => {
