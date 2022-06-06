@@ -1,4 +1,5 @@
 <script>
+  import browser from "webextension-polyfill";
   import DiscordMessage from "./DiscordMessage.svelte";
   import ReloadSVG from "./Icons/ReloadSVG.svelte";
 
@@ -13,18 +14,38 @@
       .reduce((acc, next) => ({ ...acc, ...next }), {});
   }
 
-  chrome.runtime.onMessage.addListener((req) => {
+  browser.runtime.onMessage.addListener((req) => {
     if (req.op === "HELLO") {
       attemptHeadRetrieval();
     }
   });
 
   function attemptHeadRetrieval() {
-    chrome.tabs.query({ active: true, currentWindow: true }, ([tab]) => {
-      url = tab.url;
+    // browser.tabs.query({ active: true, currentWindow: true }, ([tab]) => {
+    //   url = tab.url;
+    //
+    //   browser.tabs.sendMessage(tab.id, { op: "GIMME_HEAD" }, (res) => {
+    //     if (browser.runtime.lastError) {
+    //       error = true;
+    //       return;
+    //     }
+    //
+    //     error = false;
+    //
+    //     const dom = new DOMParser().parseFromString(res, "text/html");
+    //     meta = Array.from(dom.querySelectorAll("meta")).map(parseMetaTag);
+    //     titleTagContent = dom.querySelector("title").innerText;
+    //   });
+    // });
+    browser.tabs
+      .query({ active: true, currentWindow: true })
+      .then(([tab]) => {
+        url = tab.url;
 
-      chrome.tabs.sendMessage(tab.id, { op: "GIMME_HEAD" }, (res) => {
-        if (chrome.runtime.lastError) {
+        return browser.tabs.sendMessage(tab.id, { op: "GIMME_HEAD" });
+      })
+      .then((res) => {
+        if (browser.runtime.lastError) {
           error = true;
           return;
         }
@@ -34,12 +55,12 @@
         const dom = new DOMParser().parseFromString(res, "text/html");
         meta = Array.from(dom.querySelectorAll("meta")).map(parseMetaTag);
         titleTagContent = dom.querySelector("title").innerText;
-      });
-    });
+      })
+      .catch(() => (error = true));
   }
 
   function reloadPage() {
-    chrome.tabs.reload();
+    browser.tabs.reload();
   }
 
   attemptHeadRetrieval();

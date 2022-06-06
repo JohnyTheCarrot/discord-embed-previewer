@@ -3,7 +3,7 @@
   "version": "1.0.1",
   "description": "Preview sites' Discord embeds for debugging purposes. Not affiliated in any way with Discord.",
   "permissions": ["activeTab"],
-  "action": {
+  "browser_action": {
     "default_popup": "popup.html"
   },
   "icons": {
@@ -13,9 +13,9 @@
   },
   "content_scripts": [
     {
-      "matches": ["*://*/*", "file://*.html"],
+      "matches": ["*://*/*", "file:///*.html"],
       "js": ["browser-polyfill.js", "meta-reader.js"]
     }
   ],
-  "manifest_version": 3
+  "manifest_version": 2
 }

@@ -1,10 +1,10 @@
-chrome.runtime.sendMessage({ op: "HELLO" });
+browser.runtime.sendMessage({ op: "HELLO" });
 
 function gimmeHead(sendResponse) {
   sendResponse(document.head.innerHTML);
 }
 
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   const { op } = message;
 
   switch (op) {

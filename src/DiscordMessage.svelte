@@ -1,4 +1,5 @@
 <script>
+  import browser from "webextension-polyfill";
   import DiscordEmbed from "./DiscordEmbed.svelte";
   import Tooltip from "./Tooltip.svelte";
   import GithubLogo from "./Icons/GithubLogo.svelte";
@@ -35,7 +36,7 @@
   });
 
   function openURL(url) {
-    chrome.tabs.create({
+    browser.tabs.create({
       url,
     });
   }

@@ -34,6 +34,7 @@
     pointer-events: none;
     background-color: #18191c;
     padding: 8px 12px;
+    font-size: 12px;
     position: absolute;
     left: 50%;
     bottom: calc(100% + 8px);

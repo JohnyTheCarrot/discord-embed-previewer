@@ -175,5 +175,6 @@
     margin: 0;
     opacity: 0.5;
     cursor: default;
+    font-size: 12px;
   }
 </style>
