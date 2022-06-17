@@ -5,6 +5,7 @@
   "scripts": {
     "build": "rollup -c && copyfiles --up 1 extension/**/*.* public",
     "build:firefox": "npm run build && renamer --force --find firefox-manifest.json --replace manifest.json public/*",
+    "build:chrome": "npm run build",
     "dev": "rollup -c -w",
     "start": "sirv public --no-clear",
     "format": "prettier --write --plugin-search-dir=. ./**/*.{svelte,js,html}"
