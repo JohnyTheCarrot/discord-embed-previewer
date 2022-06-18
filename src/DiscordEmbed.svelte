@@ -37,6 +37,10 @@
     twitterCard: findAndExtract("twitter:card", "content"),
   };
 
+  // leave it in on prod, doesn't hurt anyone
+  // can only help with debugging issues for the techy types
+  console.log(embedData);
+
   let {
     borderColor,
     siteName,
