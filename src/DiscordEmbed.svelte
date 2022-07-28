@@ -12,6 +12,7 @@
   const ellipsis = "...";
 
   function findAndExtract(value, keyToExtract) {
+    console.log(metaData);
     const extractedValue = (metaData.find(
       (data) => (data["property"] ?? data["name"] ?? "").toLowerCase() === value
     ) ?? {})[keyToExtract];
@@ -53,7 +54,7 @@
 
   noEmbedPossible = Object.values(embedData).every((v) => v === undefined);
   if (!noEmbedPossible) {
-    if (description) title = titleTagContent;
+    if (!title) title = titleTagContent;
 
     if (title.length > maxTitleLength)
       title = title.substring(0, maxTitleLength - ellipsis.length) + ellipsis;
