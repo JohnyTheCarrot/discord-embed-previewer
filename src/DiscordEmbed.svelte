@@ -173,6 +173,7 @@
   }
 
   .disclaimer-tooltip-trigger {
+    color: var(--text);
     margin: 0;
     opacity: 0.5;
     cursor: default;
