@@ -2,7 +2,7 @@
   import DiscordEmbed from "./DiscordEmbed.svelte";
   import Tooltip from "./Tooltip.svelte";
   import GithubLogo from "./Icons/GithubLogo.svelte";
-  import TwitterLogo from "./Icons/TwitterLogo.svelte";
+  import Mastodon from "./Icons/Mastodon.svelte";
 
   export let url,
     metaData,
@@ -63,11 +63,11 @@
     <Tooltip>
       <span
         class="quick-menu__option"
-        on:click={() => openURL("https://twitter.com/JohnyTheCarrot")}
+        on:click={() => openURL("https://elk.zone/m.webtoo.ls/@JohnyTheCarrot@toot.community")}
       >
-        <TwitterLogo />
+        <Mastodon />
       </span>
-      <span slot="tooltip-content">Follow me on Twitter</span>
+      <span slot="tooltip-content">Follow me on Mastodon</span>
     </Tooltip>
     <Tooltip>
       <span
@@ -118,6 +118,8 @@
     color: var(--buttons-icon);
     padding: 4px;
     display: flex;
+    justify-content: center;
+    align-items: center;
     width: 20px;
     height: 20px;
   }
