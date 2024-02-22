@@ -1,4 +1,8 @@
-chrome.runtime.sendMessage({ op: "HELLO" });
+(async () => {
+  try {
+    await chrome.runtime.sendMessage({ op: "HELLO" });
+  } catch (e) {}
+})();
 
 function gimmeHead(sendResponse) {
   sendResponse(document.head.innerHTML);
