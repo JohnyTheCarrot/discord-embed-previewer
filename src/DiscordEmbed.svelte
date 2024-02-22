@@ -115,7 +115,7 @@
     border-left-width: 4px;
     border-left-style: solid;
     padding: 0.5rem 1rem 1rem 0.75rem;
-    background-color: #2f3136;
+    background-color: var(--embed-color);
     border-radius: 4px;
     max-width: 520px;
     width: fit-content;
@@ -163,12 +163,12 @@
 
   .site-name {
     font-size: 12px;
-    color: #dcddde;
+    color: var(--text);
   }
 
   .description {
     font-size: 14px;
-    color: #dcddde;
+    color: var(--text);
     white-space: pre-wrap;
   }
 

@@ -9,13 +9,13 @@
     titleTagContent = undefined;
 
   const validColors = [
-    "#BBEAA6",
-    "#E3C878",
-    "#E688A1",
-    "#EF4B4B",
-    "#7ECFC0",
-    "#9EA9F0",
-    "#A9ECA2",
+    ["#BBEAA6", "#4CAF50"],
+    ["#E3C878", "#FFD700"],
+    ["#E688A1", "#FF69B4"],
+    ["#EF4B4B", "#FF6347"],
+    ["#7ECFC0", "#008B8B"],
+    ["#9EA9F0", "#4169E1"],
+    ["#A9ECA2", "#32CD32"],
   ];
 
   let color = validColors[Math.floor(Math.random() * validColors.length)];
@@ -49,7 +49,7 @@
   />
   <div class="main">
     <div class="info">
-      <span class="username" style="color: {color}">JohnyTheCarrot</span>
+      <span class="username" style="--dark: {color[0]}; --light: {color[1]}">JohnyTheCarrot</span>
       <Tooltip>
         <span class="timestamp">Today at {currentTime}</span>
         <span slot="tooltip-content">{currentTimeTooltip}</span>
@@ -102,7 +102,7 @@
     position: absolute;
     display: none;
     right: 0;
-    background-color: #36393f;
+    background-color: var(--buttons-bg);
     margin-right: 48px;
     border-radius: 4px;
     transform: translateY(-50%);
@@ -115,7 +115,7 @@
 
   .quick-menu__option {
     cursor: pointer;
-    color: #b9bbbe;
+    color: var(--buttons-icon);
     padding: 4px;
     display: flex;
     width: 20px;
@@ -123,8 +123,8 @@
   }
 
   .quick-menu__option:hover {
-    color: #dcddde;
-    background-color: rgba(79, 84, 92, 0.4);
+    color: var(--buttons-icon-hover);
+    background-color: var(--buttons-bg);
   }
 
   .main {
@@ -154,7 +154,18 @@
 
   .username {
     font-size: 16px;
-    color: white;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .username {
+      color: var(--dark);
+    }
+  }
+
+  @media (prefers-color-scheme: light) {
+    .username {
+      color: var(--light);
+    }
   }
 
   .username:hover {
@@ -164,7 +175,7 @@
 
   .timestamp {
     font-size: 12px;
-    color: #72767d;
+    color: var(--timestamp);
     cursor: default;
   }
 

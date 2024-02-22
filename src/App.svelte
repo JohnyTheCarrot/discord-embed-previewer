@@ -65,9 +65,37 @@
 </div>
 
 <style>
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg-main: #36393f;
+      --text: rgb(219, 222, 225);
+      --embed-color: #2f3136;
+      --tooltip-bg: #111214;
+      --buttons-bg: #2D2F33;
+      --buttons-border: #27292D;
+      --buttons-icon: #B6BBC1;
+      --buttons-icon-hover: #D8DBDD;
+      --timestamp: #949ba4;
+    }
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg-main: #F7F7F7;
+      --text: #313338;
+      --embed-color: #F2F3F5;
+      --tooltip-bg: #FFFFFF;
+      --buttons-bg: #FFFFFF;
+      --buttond-border: #E4E4E5;
+      --buttons-icon: #4E5058;
+      --buttons-icon-hover: #313338;
+      --timestamp: #5c5e66;
+    }
+  }
+
   .container {
-    background-color: #36393f;
-    color: white;
+    background-color: var(--bg-main);
+    color: var(--bg-main);
     padding: 56px 0;
     min-width: 650px;
   }
@@ -89,6 +117,7 @@
   .error-action p {
     margin: 0 0 16px;
     font-size: 16px;
+    color: var(--text);
   }
 
   button {
@@ -97,6 +126,6 @@
     border-radius: 3px;
     padding: 8px 16px;
     background-color: hsl(235, 85.6%, 64.7%);
-    color: white;
+    color: var(--text);
   }
 </style>

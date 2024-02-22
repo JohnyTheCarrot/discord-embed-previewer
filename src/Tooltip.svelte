@@ -32,12 +32,12 @@
 
   .tooltip {
     pointer-events: none;
-    background-color: #18191c;
+    background-color: var(--tooltip-bg);
     padding: 8px 12px;
     position: absolute;
     left: 50%;
     bottom: calc(100% + 8px);
-    color: #dcddde;
+    color: var(--text);
     transform: translateX(-50%);
     border-radius: 5px;
     white-space: nowrap;
@@ -52,6 +52,6 @@
     border-width: 5px;
     border-style: solid;
     border-color: transparent;
-    border-top-color: #18191c;
+    border-top-color: var(--tooltip-bg);
   }
 </style>
