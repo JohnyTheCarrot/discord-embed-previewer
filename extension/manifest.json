@@ -13,9 +13,14 @@
   },
   "content_scripts": [
     {
-      "matches": ["*://*/*", "file://*.html"],
+      "matches": ["*://*/*", "file:///*.html"],
       "js": ["meta-reader.js"]
     }
   ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "discord-embed-previewer@roingus.dev"
+    }
+  },
   "manifest_version": 3
 }

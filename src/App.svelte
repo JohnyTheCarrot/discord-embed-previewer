@@ -98,6 +98,7 @@
     color: var(--bg-main);
     padding: 56px 0;
     min-width: 650px;
+    font-family: sans-serif;
   }
 
   .error {
