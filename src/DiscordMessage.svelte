@@ -2,7 +2,7 @@
   import DiscordEmbed from "./DiscordEmbed.svelte";
   import Tooltip from "./Tooltip.svelte";
   import GithubLogo from "./Icons/GithubLogo.svelte";
-  import Mastodon from "./Icons/Mastodon.svelte";
+  import BlueskyLogo from "./Icons/BlueskyLogo.svelte";
 
   export let url,
     metaData,
@@ -63,11 +63,11 @@
     <Tooltip>
       <span
         class="quick-menu__option"
-        on:click={() => openURL("https://elk.zone/m.webtoo.ls/@JohnyTheCarrot@toot.community")}
+        on:click={() => openURL("https://bsky.app/profile/roingus.dev")}
       >
-        <Mastodon />
+        <BlueskyLogo />
       </span>
-      <span slot="tooltip-content">Follow me on Mastodon</span>
+      <span slot="tooltip-content">Follow me on Bluesky</span>
     </Tooltip>
     <Tooltip>
       <span
